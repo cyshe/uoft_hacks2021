@@ -99,7 +99,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 dropdownValue = newValue;
               });
             },
-            items: <String>['One', 'Two', 'Free', 'Four']
+            items: <String>['One', 'Two', 'Three', 'Four']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

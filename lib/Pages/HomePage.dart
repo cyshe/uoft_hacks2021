@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:pie_chart/pie_chart.dart';
+
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -18,13 +23,41 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
+enum LegendShape { Circle, Rectangle }
 
 class _HomePageState extends State<HomePage> {
-  Map data = {};
+  var data = [];
+  Map form_data = {};
   int _counter = 0;
   double total = 1000.0;
   double spend = 5.0;
   double percent = 0.0;
+  var category = ["One", "Two", "Three", "Four"];
+  Map<String, double> pie = {
+    "One": 3.0,
+    "Two": 5.0,
+    "Three": 4.0,
+    "Four": 10.0
+  };
+  List<Color> colorList = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+  ];
+  LegendShape _legendShape = LegendShape.Circle;
+
+  // Map piecalc (){
+  //   for(var i = 0; i < category.length; i++){
+  //     pie[category[i]] = 0;
+  //   }
+  //   print(pie);
+  //   return pie;
+  // }
+  //
+  // void piecalc (Map form_data){
+  //   pie[ form_data["category"] ] += form_data['amount'];
+  // }
 
   void _incrementCounter() {
     setState(() {
@@ -35,20 +68,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context).settings.arguments;
-    if (data != null && data['title']!= null){
-      spend += data['amount'];
-      if (spend + data['amount'] > total){
+    form_data = ModalRoute.of(context).settings.arguments;
+    if (form_data != null && form_data['title']!= null){
+      spend += form_data['amount'];
+      if (spend + form_data['amount'] > total){
         percent = 1.0;
         print("OVER BUDGET");
+        // TODO: Change color to red if over budget
       }
       else{
         percent = spend/total;
         print("Not over budget");
       }
-      print("added data"+(data['amount']).toString());
+      print("added data"+(form_data['amount']).toString());
     }
-    print(data);
+    print(form_data);
+    //piecalc(form_data);
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
@@ -69,6 +104,35 @@ class _HomePageState extends State<HomePage> {
                   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
               ),
               progressColor: Colors.green,
+            ),
+            Text("Pie Char"),
+            PieChart(
+              dataMap: pie,
+              animationDuration: Duration(milliseconds: 800),
+              chartLegendSpacing: 32,
+              chartRadius: MediaQuery.of(context).size.width / 3.2,
+              colorList: colorList,
+              initialAngleInDegree: 0,
+              chartType: ChartType.ring,
+              ringStrokeWidth: 32,
+              centerText: "HYBRID",
+              legendOptions: LegendOptions(
+                showLegendsInRow: false,
+                legendPosition: LegendPosition.right,
+                showLegends: true,
+                legendShape: _legendShape == LegendShape.Circle
+                    ? BoxShape.circle
+                    : BoxShape.rectangle,
+                legendTextStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              chartValuesOptions: ChartValuesOptions(
+                showChartValueBackground: true,
+                showChartValues: true,
+                showChartValuesInPercentage: false,
+                showChartValuesOutside: false,
+              ),
             ),
             RaisedButton(
               onPressed: () {
