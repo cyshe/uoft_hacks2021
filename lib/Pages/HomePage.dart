@@ -9,10 +9,9 @@ import 'package:flutter/foundation.dart';
 
 // TODO: Set up data class/array/map
 // TODO: Show all Transactions
-// TODO: Fix Pie chart
+// TODO: CHANGE DATA ITERATION IN PIE CHART (PIE CALCULATOR)
 // TODO: Change add transaction description
 // TODO: Add Category in transaction
-// TODO: Change color to red if over budget
 // TODO: Single Transaction Page
 
 class HomePage extends StatefulWidget {
@@ -37,20 +36,13 @@ enum LegendShape { Circle, Rectangle }
 class _HomePageState extends State<HomePage> {
   var data = [];
   Map form_data = {};
-  int _counter = 0;
-  double total = 1000.0;
+  double total = 100.0;
   double spend = 5.0;
-  double percent = 0.0;
-  var category = ["One", "Two", "Three", "Four"];
-  Map<String, double> pie = {
-    "One": 3.0,
-    "Two": 5.0,
-    "Three": 4.0,
-    "Four": 10.0
-  };
+  List<String> category = ["One", "Two", "Three", "Four"]; // TODO: CHANGE
+  Map<String, double> pie = {};
   List<Color> colorList = [
-    Colors.red,
     Colors.green,
+    Colors.red,
     Colors.blue,
     Colors.yellow,
   ];
@@ -75,15 +67,31 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Map<String, double> pieCalculator(){
+    // TODO: CHANGE DATA ITERATION
+    Map<String, double> pie = {
+      "One": 3.0,
+      "Two": 5.0,
+      "Three": 7.0,
+      "Four": 1.0
+    };
+    for (var i = 0; i < data.length; i++){
+      pie[data[i]['category']] += data[i]['amount'];
+    }
+    return pie;
+  }
+
   @override
   Widget build(BuildContext context) {
+    int progress_color = 0;
+    double percent = spend/total;
     form_data = ModalRoute.of(context).settings.arguments;
     if (form_data != null && form_data['title']!= null){
       spend += form_data['amount'];
       if (spend + form_data['amount'] > total){
         percent = 1.0;
         print("OVER BUDGET");
-        // TODO: Change color to red if over budget
+        progress_color = 1;
       }
       else{
         percent = spend/total;
@@ -91,7 +99,11 @@ class _HomePageState extends State<HomePage> {
       }
       print("added data"+(form_data['amount']).toString());
     }
+    ;
     print(form_data);
+    pie = pieCalculator();
+    print("pie");
+    print(pie);
     //piecalc(form_data);
     return Scaffold(
       appBar: AppBar(
@@ -112,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                 (spend/total*100).toString()+"%",
                   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
               ),
-              progressColor: Colors.green,
+              progressColor: colorList[progress_color],
             ),
             Text("Pie Char"),
             PieChart(
