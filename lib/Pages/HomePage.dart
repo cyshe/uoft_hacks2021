@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -20,15 +21,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
+  double total = 1.0;
+  double spend = 0.5;
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      print("Button has been pushed");
+      Navigator.pushNamed(context, '/lists');
     });
   }
 
@@ -42,19 +41,30 @@ class _HomePageState extends State<HomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("Home Page"),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            // TODO: Change counter text into two bars
             Text(
-              'You have pushed the button this many times:',
+              'Your Spending Summary',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            new CircularPercentIndicator(
+              radius: 200.0,
+              lineWidth: 10.0,
+              percent: spend/total,
+              center: new Text(
+                (spend/total*100).toInt().toString()+"%",
+                  style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
+              ),
+              progressColor: Colors.green,
+            ),
+            RaisedButton.icon(
+              onPressed: _incrementCounter,
+              icon: Icon(Icons.edit_location),
+              label:
+                Text("Show List"),
             ),
           ],
         ),
@@ -63,7 +73,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
