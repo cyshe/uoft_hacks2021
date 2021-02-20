@@ -15,7 +15,12 @@ class _AddPageState extends State<AddPage> {
       appBar: AppBar(
         title: Text("New Transaction Page"),
       ),
-      body: Center(child: AddTransaction()),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AddTransaction(),
+        ],
+      ),
     );
   }
 }
@@ -27,7 +32,11 @@ class AddTransaction extends StatefulWidget {
 
 class _AddTransactionState extends State<AddTransaction> {
   final _formKey = GlobalKey<FormState>();
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   String dropdownValue = 'One';
+  TextEditingController dateCtl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,7 @@ class _AddTransactionState extends State<AddTransaction> {
           children: <Widget>[
             Text("Title"),
             TextFormField(
-              initialValue: "Title",
+              controller: titleController,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -50,7 +59,7 @@ class _AddTransactionState extends State<AddTransaction> {
             ),
             Text("Amount"),
             TextFormField(
-              initialValue: "Amount",
+              controller: amountController,
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
@@ -59,6 +68,22 @@ class _AddTransactionState extends State<AddTransaction> {
                 return null;
               },
             ),
+            TextFormField(
+              controller: dateCtl,
+              decoration: InputDecoration(
+                labelText: "Date of birth",
+                hintText: "Ex. Insert your dob",),
+              onTap: () async{
+                DateTime date = DateTime(1900);
+                FocusScope.of(context).requestFocus(new FocusNode());
+
+                date = await showDatePicker(
+                    context: context,
+                    initialDate:DateTime.now(),
+                    firstDate:DateTime(1900),
+                    lastDate: DateTime(2100));
+
+                dateCtl.text = date.toIso8601String().substring(0,10);}),
           DropdownButton<String>(
             value: dropdownValue,
             icon: Icon(Icons.arrow_downward),
@@ -92,7 +117,15 @@ class _AddTransactionState extends State<AddTransaction> {
                     // If the form is valid, display a Snackbar.
                     Scaffold.of(context)
                         .showSnackBar(SnackBar(content: Text('Processing Data')));
+                    print("Rerouting to home");
+                    Navigator.pushReplacementNamed(context, '/', arguments: {
+                        'title': titleController.text,
+                        'amount': double.parse(amountController.text),
+                        'date': dateCtl.text,
+                        'category': dropdownValue
+                    });
                   }
+
                 },
                 child: Text('Submit'),
               ),

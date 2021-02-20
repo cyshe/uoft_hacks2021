@@ -20,9 +20,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Map data = {};
   int _counter = 0;
-  double total = 1.0;
-  double spend = 0.5;
+  double total = 1000.0;
+  double spend = 5.0;
+  double percent = 0.0;
 
   void _incrementCounter() {
     setState(() {
@@ -33,12 +35,20 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    data = ModalRoute.of(context).settings.arguments;
+    if (data != null && data['title']!= null){
+      spend += data['amount'];
+      if (spend + data['amount'] > total){
+        percent = 1.0;
+        print("OVER BUDGET");
+      }
+      else{
+        percent = spend/total;
+        print("Not over budget");
+      }
+      print("added data"+(data['amount']).toString());
+    }
+    print(data);
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
@@ -53,9 +63,9 @@ class _HomePageState extends State<HomePage> {
             new CircularPercentIndicator(
               radius: 200.0,
               lineWidth: 10.0,
-              percent: spend/total,
+              percent: percent,
               center: new Text(
-                (spend/total*100).toInt().toString()+"%",
+                (spend/total*100).toString()+"%",
                   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
               ),
               progressColor: Colors.green,
