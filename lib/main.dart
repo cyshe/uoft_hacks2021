@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
+import 'Pages/HomePage.dart';
+import 'Pages/ListPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => HomePage(),
+      '/lists': (context) => ListPage(),
+    }
+  )
+
+  );
 }
 
 class MyApp extends StatelessWidget {
