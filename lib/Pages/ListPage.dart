@@ -11,9 +11,9 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      // appBar: Appbar(
-      //
-      // )
+      appBar: AppBar(
+        title: Text("List Page"),
+      ),
     );
   }
 }

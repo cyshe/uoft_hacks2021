@@ -68,12 +68,22 @@ class _HomePageState extends State<HomePage> {
               // icon: Icon(Icons.edit_location),
               child: Text("Show List"),
             ),
+            RaisedButton(
+              onPressed: () {
+                debugPrint('add page');
+                Navigator.pushNamed(context, '/add');
+              },
+              // icon: Icon(Icons.edit_location),
+              child: Text("Add"),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {
+          print("add page");
+          Navigator.pushNamed(context, '/add');
+        },
         child: Icon(Icons.add),
       ),
     );

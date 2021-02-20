@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/HomePage.dart';
 import 'Pages/ListPage.dart';
+import 'Pages/NewTransaction.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -8,6 +9,7 @@ void main() {
     routes: {
       '/': (context) => HomePage(),
       '/lists': (context) => ListPage(),
+      '/add': (context) => AddPage(),
     }
   )
 
