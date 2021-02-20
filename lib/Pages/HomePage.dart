@@ -60,11 +60,13 @@ class _HomePageState extends State<HomePage> {
               ),
               progressColor: Colors.green,
             ),
-            RaisedButton.icon(
-              onPressed: _incrementCounter,
-              icon: Icon(Icons.edit_location),
-              label:
-                Text("Show List"),
+            RaisedButton(
+              onPressed: () {
+                debugPrint('hello');
+                Navigator.pushNamed(context, '/lists');
+              },
+              // icon: Icon(Icons.edit_location),
+              child: Text("Show List"),
             ),
           ],
         ),
