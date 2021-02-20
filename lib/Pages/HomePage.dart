@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 
 // TODO: Set up data class/array/map
 // TODO: Show all Transactions
-// TODO: CHANGE DATA ITERATION IN PIE CHART (PIE CALCULATOR)
+// TODO: CHANGE DATA ITERATION IN PIE CHART (PIE CALCULATOR, CHANGE IMPLEMENTATION)
 // TODO: Change add transaction description
 // TODO: Add Category in transaction
 // TODO: Single Transaction Page
@@ -33,11 +33,15 @@ class HomePage extends StatefulWidget {
 }
 enum LegendShape { Circle, Rectangle }
 
+String format(double n) {
+  return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 2);
+}
+
 class _HomePageState extends State<HomePage> {
-  var data = [];
-  Map form_data = {};
-  double total = 100.0;
-  double spend = 5.0;
+  List<Map<String, String>> data = [];
+  Map<String, String> form_data = {};
+  double total = 2000.0;
+  double spend = 0.0;
   List<String> category = ["One", "Two", "Three", "Four"]; // TODO: CHANGE
   Map<String, double> pie = {};
   List<Color> colorList = [
@@ -76,9 +80,21 @@ class _HomePageState extends State<HomePage> {
       "Four": 1.0
     };
     for (var i = 0; i < data.length; i++){
-      pie[data[i]['category']] += data[i]['amount'];
+      pie[(data[i])['category']] += double.parse(data[i]['amount']);
     }
     return pie;
+  }
+
+  void appendData(Map fd){
+    if (fd != null){
+      Map<String, String> insert_data = {
+        'title': fd['title'],
+        'amount': fd['amount'],
+        'date': fd['date'],
+        'category': fd['category']
+      };
+      data.add(insert_data);
+    }
   }
 
   @override
@@ -86,9 +102,10 @@ class _HomePageState extends State<HomePage> {
     int progress_color = 0;
     double percent = spend/total;
     form_data = ModalRoute.of(context).settings.arguments;
+    appendData(form_data);
     if (form_data != null && form_data['title']!= null){
-      spend += form_data['amount'];
-      if (spend + form_data['amount'] > total){
+      spend += double.parse(form_data['amount']);
+      if (spend + double.parse(form_data['amount']) > total){
         percent = 1.0;
         print("OVER BUDGET");
         progress_color = 1;
@@ -121,7 +138,7 @@ class _HomePageState extends State<HomePage> {
               lineWidth: 10.0,
               percent: percent,
               center: new Text(
-                (spend/total*100).toString()+"%",
+                format(spend/total*100).toString()+"%",
                   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
               ),
               progressColor: colorList[progress_color],

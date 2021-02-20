@@ -120,7 +120,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     print("Rerouting to home");
                     Navigator.pushReplacementNamed(context, '/', arguments: {
                         'title': titleController.text,
-                        'amount': double.parse(amountController.text),
+                        'amount': amountController.text,
                         'date': dateCtl.text,
                         'category': dropdownValue
                     });
