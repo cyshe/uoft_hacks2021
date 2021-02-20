@@ -6,6 +6,15 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
+
+// TODO: Set up data class/array/map
+// TODO: Show all Transactions
+// TODO: Fix Pie chart
+// TODO: Change add transaction description
+// TODO: Add Category in transaction
+// TODO: Change color to red if over budget
+// TODO: Single Transaction Page
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
