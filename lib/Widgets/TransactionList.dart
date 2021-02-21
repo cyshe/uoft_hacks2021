@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uofthacks2021/Pages/HomePage.dart';
 
 class TransactionList extends StatelessWidget {
-  List<Map<String, String>> transactions = HomePageState().getData();
+  final List<Map<String, String>> transactions = HomePageState().getData();
 
   @override
   Widget build(BuildContext context) {

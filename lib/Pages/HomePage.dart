@@ -28,6 +28,8 @@ class HomePage extends StatefulWidget {
 
   final String title;
 
+
+
   @override
   HomePageState createState() => HomePageState();
 }
@@ -74,10 +76,10 @@ class HomePageState extends State<HomePage> {
   Map<String, double> pieCalculator(){
     // TODO: CHANGE DATA ITERATION
     Map<String, double> pie = {
-      "Food": 2.0,
-      "Transportation": 3.0,
-      "Entertainment": 4.0,
-      "Other": 5.0
+      "Food": 0.0,
+      "Transportation": 0.0,
+      "Entertainment": 0.0,
+      "Other": 0.0
     };
     for (var i = 0; i < data.length; i++){
       pie[(data[i])['category']] += double.parse(data[i]['amount']);
@@ -86,7 +88,7 @@ class HomePageState extends State<HomePage> {
   }
 
   void appendData(Map fd){
-    if (fd != null){
+    if (fd['title'] != null && fd['amount'] != null && fd['date'] != null && fd['category'] != null) {
       Map<String, String> insert_data = {
         'title': fd['title'],
         'amount': fd['amount'],
@@ -97,9 +99,10 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-   List <Map>  getData(){
-      return data;
-   }
+  List <Map>  getData(){
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
     int progress_color = 0;
