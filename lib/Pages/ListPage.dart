@@ -12,11 +12,23 @@ class ListPage extends StatelessWidget {
 //class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context){
+    Map<String, Object> data = ModalRoute.of(context).settings.arguments;
   return Scaffold(
     appBar: AppBar(
       title: Text("List View"),
       ),
-    body: TransactionList(),
+    body: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Title"),
+            Text("Amount")
+          ],
+        ),
+        TransactionList(),
+      ],
+    ),
     floatingActionButton: FloatingActionButton(
       onPressed: () {
         print("add page");

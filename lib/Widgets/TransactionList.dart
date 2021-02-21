@@ -6,10 +6,13 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Transaction list");
+    print(transactions);
     return Column(
       children: transactions.map((tx) {
         return Card(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(tx['title']),
               Text(tx['amount']),

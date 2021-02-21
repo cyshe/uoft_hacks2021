@@ -14,6 +14,10 @@ import 'package:flutter/foundation.dart';
 // TODO: Add Category in transaction
 // TODO: Single Transaction Page
 
+List<Map<String, String>> data = [];
+double total = 2000.0;
+double spend = 0.0;
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
@@ -39,10 +43,7 @@ String format(double n) {
 }
 
 class HomePageState extends State<HomePage> {
-  List<Map<String, String>> data = [];
   Map<String, String> form_data = {};
-  double total = 2000.0;
-  double spend = 0.0;
   List<String> category = ["Food", "Transportation", "Entertainment", "Others"];
   Map<String, double> pie = {};
   List<Color> colorList = [
@@ -78,16 +79,15 @@ class HomePageState extends State<HomePage> {
       "Food": 0.0,
       "Transportation": 0.0,
       "Entertainment": 0.0,
-      "Other": 0.0
+      "Others": 0.0
     };
-    for (var i = 0; i < widget.data.length; i++){
-      pie[(widget.data[i])['category']] += double.parse(widget.data[i]['amount']);
+    for (var i = 0; i < data.length; i++){
+      pie[(data[i])['category']] += double.parse(data[i]['amount']);
     }
     return pie;
   }
 
   void appendData(Map fd){
-    if (fd != null) {
       Map<String, String> insert_data = {
         'title': fd['title'],
         'amount': fd['amount'],
@@ -95,12 +95,13 @@ class HomePageState extends State<HomePage> {
         'category': fd['category']
       };
       print("7777");
-      widget.data.add(insert_data);
-    }
+      data.add(insert_data);
+      print("data added!");
+
   }
 
   List <Map>  getData(){
-    return widget.data;
+    return data;
   }
 
   @override
@@ -108,7 +109,14 @@ class HomePageState extends State<HomePage> {
     int progress_color = 0;
     double percent = spend/total;
     form_data = ModalRoute.of(context).settings.arguments;
-    appendData(form_data);
+    print("form");
+    print(form_data);
+    print("Starting append data");
+    if (form_data!= null){
+      appendData(form_data);
+    }
+    print("Current Final Data:");
+    print(data);
     if (form_data != null && form_data['title']!= null){
       spend += double.parse(form_data['amount']);
       if (spend + double.parse(form_data['amount']) > total){
@@ -144,7 +152,7 @@ class HomePageState extends State<HomePage> {
               lineWidth: 10.0,
               percent: percent,
               center: new Text(
-                format(spend/total*100).toString()+"%",
+                format(percent*100).toString()+"%",
                   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0)
               ),
               progressColor: colorList[progress_color],
@@ -181,7 +189,9 @@ class HomePageState extends State<HomePage> {
             RaisedButton(
               onPressed: () {
                 debugPrint('hello');
-                Navigator.pushNamed(context, '/lists');
+                Navigator.pushNamed(context, '/lists', arguments: {
+                  'data': data
+                });
               },
               // icon: Icon(Icons.edit_location),
               child: Text("List View"),
@@ -200,7 +210,9 @@ class HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("add page");
-          Navigator.pushNamed(context, '/add');
+          Navigator.pushNamed(context, '/add', arguments: {
+            'data': data
+          });
         },
         child: Icon(Icons.add),
       ),

@@ -44,6 +44,7 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
 
   Widget build(BuildContext context) {
+    Map data = ModalRoute.of(context).settings.arguments;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Form(
@@ -104,7 +105,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 dropdownValue = newValue;
               });
             },
-            items: <String>['Food', 'Transportation', 'Entertainment ', 'Others']
+            items: <String>["Food", "Transportation", "Entertainment", "Others"]
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
