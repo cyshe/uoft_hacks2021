@@ -1,16 +1,17 @@
 # uofthacks2021
+## Inspiration
+Most of the expenses apps track personal expenses and do weekly reviews. We think there is a lack of motivation to save more since the period they track has passed. As a result, we decide to create an expense app where the user can know their spending in the current budgeting period
 
-A new Flutter application.
+## What it does
+The app is an expense app that shows how much of the budget is being used. Users can add and view transactions like a standard expenses app.
 
-## Getting Started
+## How we built it
+We built the app using flutter
 
-This project is a starting point for a Flutter application.
+## Challenges we ran into
+Learning app development from scratch
 
-A few resources to get you started if this is your first Flutter project:
+## Accomplishments that we're proud of
+It's a working app!!!!!!
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## What we learned
