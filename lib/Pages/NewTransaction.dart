@@ -49,6 +49,7 @@ class _AddTransactionState extends State<AddTransaction> {
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text("Title"),
