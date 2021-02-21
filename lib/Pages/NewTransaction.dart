@@ -38,7 +38,7 @@ class _AddTransactionState extends State<AddTransaction> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
-  String dropdownValue = 'One';
+  String dropdownValue = 'Food';
   TextEditingController dateCtl = TextEditingController();
 
   @override
