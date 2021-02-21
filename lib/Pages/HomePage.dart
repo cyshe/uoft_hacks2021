@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   Map<String, String> form_data = {};
   double total = 2000.0;
   double spend = 0.0;
-  List<String> category = ["One", "Two", "Three", "Four"]; // TODO: CHANGE
+  List<String> category = ["Food", "Transportation", "Entertainment", "Others"];
   Map<String, double> pie = {};
   List<Color> colorList = [
     Colors.green,
@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> {
   Map<String, double> pieCalculator(){
     // TODO: CHANGE DATA ITERATION
     Map<String, double> pie = {
-      "One": 3.0,
-      "Two": 5.0,
-      "Three": 7.0,
-      "Four": 1.0
+      "Food": 0.0,
+      "Transportation": 0.0,
+      "Entertainment": 0.0,
+      "Other": 0.0
     };
     for (var i = 0; i < data.length; i++){
       pie[(data[i])['category']] += double.parse(data[i]['amount']);
@@ -178,16 +178,16 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pushNamed(context, '/lists');
               },
               // icon: Icon(Icons.edit_location),
-              child: Text("Show List"),
+              child: Text("List View"),
             ),
-            RaisedButton(
-              onPressed: () {
-                debugPrint('add page');
-                Navigator.pushNamed(context, '/add');
-              },
+           // RaisedButton(
+           //   onPressed: () {
+           //     debugPrint('add page');
+           //     Navigator.pushNamed(context, '/add');
+           //   },
               // icon: Icon(Icons.edit_location),
-              child: Text("Add"),
-            )
+           //   child: Text("Add"),
+           // )
           ],
         ),
       ),

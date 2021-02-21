@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../Widgets/ListOfTransactions.dart';
+//page to add new transaction
 
 class AddPage extends StatefulWidget {
   AddPage({Key key}) : super(key: key);
@@ -26,8 +28,10 @@ class _AddPageState extends State<AddPage> {
 }
 
 class AddTransaction extends StatefulWidget {
+
   @override
   _AddTransactionState createState() => _AddTransactionState();
+
 }
 
 class _AddTransactionState extends State<AddTransaction> {
@@ -39,6 +43,7 @@ class _AddTransactionState extends State<AddTransaction> {
   TextEditingController dateCtl = TextEditingController();
 
   @override
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -63,7 +68,7 @@ class _AddTransactionState extends State<AddTransaction> {
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter Number';
                 }
                 return null;
               },
@@ -71,7 +76,7 @@ class _AddTransactionState extends State<AddTransaction> {
             TextFormField(
               controller: dateCtl,
               decoration: InputDecoration(
-                labelText: "Date of birth",
+                labelText: "Insert Date",
                 hintText: "Ex. Insert your dob",),
               onTap: () async{
                 DateTime date = DateTime(1900);
@@ -99,7 +104,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 dropdownValue = newValue;
               });
             },
-            items: <String>['One', 'Two', 'Three', 'Four']
+            items: <String>['Food', 'Transportation', 'Entertainment', 'Others']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -109,7 +114,7 @@ class _AddTransactionState extends State<AddTransaction> {
           ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
+              child: RaisedButton(
                 onPressed: () {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
@@ -125,7 +130,8 @@ class _AddTransactionState extends State<AddTransaction> {
                         'category': dropdownValue
                     });
                   }
-
+                  //add this transaction to list
+                  addnew(titleController.text, double.parse(amountController.text), dateCtl.text, dropdownValue);
                 },
                 child: Text('Submit'),
               ),
