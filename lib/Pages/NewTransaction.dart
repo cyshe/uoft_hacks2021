@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Widgets/ListOfTransactions.dart';
 //page to add new transaction
 
 class AddPage extends StatefulWidget {
@@ -105,7 +104,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 dropdownValue = newValue;
               });
             },
-            items: <String>['Food', 'Transportation', 'Entertainment', 'Others']
+            items: <String>['Food', 'Transportation', 'Entertainment ', 'Others']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -131,8 +130,6 @@ class _AddTransactionState extends State<AddTransaction> {
                         'category': dropdownValue
                     });
                   }
-                  //add this transaction to list
-                  addnew(titleController.text, double.parse(amountController.text), dateCtl.text, dropdownValue);
                 },
                 child: Text('Submit'),
               ),

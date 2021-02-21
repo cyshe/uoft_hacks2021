@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Widgets/ListOfTransactions.dart';
+import 'package:uofthacks2021/Widgets/TransactionList.dart';
 
 class ListPage extends StatefulWidget {
   ListPage({Key key}) : super(key: key);
@@ -15,7 +15,7 @@ class _ListPageState extends State<ListPage> {
       appBar: AppBar(
         title: Text("List View"),
       ),
-      body: ListOfTransactions(),
+      body: TransactionList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("add page");

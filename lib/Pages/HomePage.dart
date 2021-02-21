@@ -29,7 +29,7 @@ class HomePage extends StatefulWidget {
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 enum LegendShape { Circle, Rectangle }
 
@@ -37,7 +37,7 @@ String format(double n) {
   return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 2);
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   List<Map<String, String>> data = [];
   Map<String, String> form_data = {};
   double total = 2000.0;
@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> {
   Map<String, double> pieCalculator(){
     // TODO: CHANGE DATA ITERATION
     Map<String, double> pie = {
-      "Food": 0.0,
-      "Transportation": 0.0,
-      "Entertainment": 0.0,
-      "Other": 0.0
+      "Food": 2.0,
+      "Transportation": 3.0,
+      "Entertainment": 4.0,
+      "Other": 5.0
     };
     for (var i = 0; i < data.length; i++){
       pie[(data[i])['category']] += double.parse(data[i]['amount']);
@@ -97,6 +97,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+   List <Map>  getData(){
+      return data;
+   }
   @override
   Widget build(BuildContext context) {
     int progress_color = 0;
@@ -116,7 +119,7 @@ class _HomePageState extends State<HomePage> {
       }
       print("added data"+(form_data['amount']).toString());
     }
-    ;
+
     print(form_data);
     pie = pieCalculator();
     print("pie");
@@ -143,7 +146,7 @@ class _HomePageState extends State<HomePage> {
               ),
               progressColor: colorList[progress_color],
             ),
-            Text("Pie Char"),
+            Text("Pie Chart"),
             PieChart(
               dataMap: pie,
               animationDuration: Duration(milliseconds: 800),
