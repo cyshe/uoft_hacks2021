@@ -29,7 +29,6 @@ class HomePage extends StatefulWidget {
   final String title;
 
 
-
   @override
   HomePageState createState() => HomePageState();
 }
@@ -81,26 +80,27 @@ class HomePageState extends State<HomePage> {
       "Entertainment": 0.0,
       "Other": 0.0
     };
-    for (var i = 0; i < data.length; i++){
-      pie[(data[i])['category']] += double.parse(data[i]['amount']);
+    for (var i = 0; i < widget.data.length; i++){
+      pie[(widget.data[i])['category']] += double.parse(widget.data[i]['amount']);
     }
     return pie;
   }
 
   void appendData(Map fd){
-    if (fd['title'] != null && fd['amount'] != null && fd['date'] != null && fd['category'] != null) {
+    if (fd != null) {
       Map<String, String> insert_data = {
         'title': fd['title'],
         'amount': fd['amount'],
         'date': fd['date'],
         'category': fd['category']
       };
-      data.add(insert_data);
+      print("7777");
+      widget.data.add(insert_data);
     }
   }
 
   List <Map>  getData(){
-    return data;
+    return widget.data;
   }
 
   @override
